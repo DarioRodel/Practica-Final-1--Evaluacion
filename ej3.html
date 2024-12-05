@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ejercicio 3 - Descifrado César</title>
+        <style>
+            #resultado {
+                color: red;
+                font-weight: bold;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <h1>Ejercicio 3: Descifrado César</h1>
+
+        <label for="alfabeto">Alfabeto:</label>
+        <select id="alfabeto">
+            <option value="castellano">Castellano</option>
+            <option value="ingles">Inglés</option>
+        </select><br><br>
+
+        <label for="textoCifrado">Texto a descifrar:</label>
+        <textarea id="textoCifrado" rows="4" cols="50"></textarea><br><br>
+
+        <label for="rotacion">Nivel de rotado:</label>
+        <input type="number" id="rotacion" min="0" value="0"><br><br>
+
+        <button onclick="descifrarTexto()">Descifrar</button>
+
+        <h2>Texto Descifrado:</h2>
+        <div id="resultado"></div>
+    </body>
+
+    
+    <script>
+        const alfabetos = {
+            'castellano': 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ',
+            'ingles': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        };
+
+        function descifrarTexto() {
+            let alfabetoSeleccionado = document.getElementById('alfabeto').value;
+            let textoCifrado = document.getElementById('textoCifrado').value;
+            let rotacion = parseInt(document.getElementById('rotacion').value);
+            let alfabeto = alfabetos[alfabetoSeleccionado];
+            let textoDescifrado = '';
+
+            for (let i = 0; i < textoCifrado.length; i++) {
+                let char = textoCifrado[i];
+                let indice = alfabeto.indexOf(char);
+
+                if (indice !== -1) {
+
+                    let nuevoIndice = (indice - rotacion + alfabeto.length) % alfabeto.length;
+                    textoDescifrado += alfabeto[nuevoIndice];
+                } else {
+
+                    textoDescifrado += char;
+                }
+            }
+
+            document.getElementById('resultado').innerText = textoDescifrado;
+        }
+    </script>
+
+    </html>
+
+</body>
+
+</html>

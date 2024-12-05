@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Usuario</title>
+</head>
+
+<body>
+    <h1>Configuración de Usuario</h1>
+    <h2>Inicio de sesión</h2>
+    <form id="formulario" method="post" action="cambia_cuenta.php" onsubmit="return validar()">
+        <label>¿Cuándo quieres que Windows te vuelva a pedir que inicies sesión?</label>
+        <select name="inicio_sesion" id="inicio_sesion">
+            <option value="suspension">Cuando el PC se activa tras haber estado en suspensión</option>
+            <option value="nunca">Nunca</option>
+        </select>
+        <br>
+
+        <h2>Contraseña</h2>
+        <label for="contrasena1">Nueva contraseña</label><br>
+        <input type="password" id="contrasena1" name="contrasena1" required><br><br>
+
+        <label for="contrasena2">Vuelve a escribir la contraseña:</label><br>
+        <input type="password" id="contrasena2" name="contrasena2" required><br>
+
+        <span id="errorContrasena1" style="color: red;"></span>
+        <span id="errorContrasena2" style="color: red;"></span><br>
+
+        <label for="indicio">Indicio de contraseña:</label><br>
+        <input type="text" id="indicio" name="indicio"><br>
+
+        <span id="errorIndicio" style="color: red;"></span><br>
+
+        <h2>Privacidad</h2>
+        <input type="checkbox" id="detalles" name="detalles">
+        <label for="detalles">Mostrar detalles de la cuenta en la pantalla de inicio de sesión</label>
+        <br><br>
+
+        <button type="submit">Aceptar</button>
+    </form>
+
+    <script>
+        function validar() {
+            let expresion_contraseña = /^[A-Z][a-zA-Z0-9]{5,}$/;
+            let contrasena1 = document.getElementById('contrasena1').value;
+            let contrasena2 = document.getElementById('contrasena2').value;
+            let indicio = document.getElementById('indicio').value;
+
+            document.getElementById('errorContrasena1').textContent = "";
+            document.getElementById('errorContrasena2').textContent = "";
+            document.getElementById('errorIndicio').textContent = "";
+
+            if (!expresion_contraseña.test(contrasena1)) {
+                document.getElementById('errorContrasena1').textContent = "La contraseña debe empezar por una letra mayúscula, tener un mínimo de 6 caracteres y contener al menos un dígito.";
+                document.getElementById('contrasena1').focus();
+                document.getElementById('contrasena1').select();
+                return false;
+            }
+
+            if (contrasena1 !== contrasena2) {
+                document.getElementById('errorContrasena2').textContent = "Las contraseñas escritas no coinciden. Vuelve a intentarlo.";
+                document.getElementById('contrasena1').focus();
+                document.getElementById('contrasena1').select();
+                return false;
+            }
+
+            if (indicio.includes(contrasena1)) {
+                document.getElementById('errorIndicio').textContent = "El indicio de contraseña no puede contener la contraseña.";
+                document.getElementById('indicio').focus();
+                document.getElementById('indicio').select();
+                return false;
+            }
+
+            alert("Formulario validado correctamente.");
+            return true;
+        }
+    </script>
+</body>
+
+</html>
