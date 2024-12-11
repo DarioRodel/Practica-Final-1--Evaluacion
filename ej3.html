@@ -51,14 +51,14 @@
                     if (nuevoIndice < 0) {
                         nuevoIndice += alfabeto.length;
                     }
-
                     textoDescifrado += alfabeto[nuevoIndice];
                 } else {
                     textoDescifrado += char; 
                 }
             }
 
-            document.getElementById('resultado').innerText = textoDescifrado;
+            let resultadoElemento = document.getElementById('resultado');
+            resultadoElemento.textContent = textoDescifrado;
         }
     </script>
 </body>
